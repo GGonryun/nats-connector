@@ -1,9 +1,6 @@
-TAG?=latest-dev
-NAMESPACE?=openfaas
-.PHONY: build
+TAG?=latest
+NAMESPACE?=gonryun
+.PHONY: publish
 
-build:
-	docker build -t $(NAMESPACE)/nats-connector:$(TAG) .
-
-push:
-	docker push $(NAMESPACE)/nats-connector:$(TAG)
+publish:
+	docker buildx build --push --platform linux/amd64,linux/arm64/v8 --tag $(NAMESPACE)/nats-connector:$(TAG) .

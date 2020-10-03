@@ -1,63 +1,16 @@
 # nats-connector
-
-[![Build Status](https://travis-ci.com/openfaas-incubator/nats-connector.svg?branch=master)](https://travis-ci.com/openfaas-incubator/nats-connector)
-[![Go Report Card](https://goreportcard.com/badge/github.com/openfaas-incubator/nats-connector)](https://goreportcard.com/report/github.com/openfaas-incubator/nats-connector)
-[![GoDoc](https://godoc.org/github.com/openfaas-incubator/nats-connector?status.svg)](https://godoc.org/github.com/openfaas-incubator/nats-connector)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![OpenFaaS](https://img.shields.io/badge/openfaas-serverless-blue.svg)](https://www.openfaas.com)
-
 An OpenFaaS event-connector to trigger functions from NATS.
-
-## Try it out
-
-Test functions have been created to help you verify the installation of `nats-connector`.  See [`contrib/test-functions`](./contrib/test-functions).
-
 ### Deploy on Kubernetes
 
 The following instructions show how to run and test `nats-connector` on Kubernetes.
 
-1. Deploy the receiver functions, the receiver function must have the `topic` annotation:
+1. Deploy the connector with:
 
    ```bash
-   export OPENFAAS_URL="http://localhost:8080" # Set your gateway via env variable or the -g flag
-   faas-cli deploy --name receive-message --image openfaas/receive-message:latest --fprocess='./handler' --annotation topic="nats-test"
+   kubectl apply -f https://github.com/GGonryun/nats-connector/blob/master/yaml/kubernetes/connector-dep.yaml
    ```
 
-   Or deploy with the `stack.yml` provided in this repo:
-   ```
-   cd contrib/test-functions
-   faas-cli template pull stack
-   faas-cli deploy --filter receive-message
-   ```
-
-2. Deploy the connector with:
-
-   ```bash
-   kubectl apply -f ./yaml/kubernetes/connector-dep.yaml
-   ```
-
-3. Deploy the `publish-message` function
-
-   ```bash
-   faas-cli deploy --name publish-message --image openfaas/publish-message:latest --fprocess='./handler' --env nats_url=nats://nats.openfaas:4222
-   ```
-
-   Or deploy via `stack.yml`
-
-      ```
-   cd contrib/test-functions
-   faas-cli template pull stack
-   faas-cli deploy --filter publish-message
-   ```
-
-4. Now publish a message on the `nats-test` topic. 
-
-   Invoke the publisher
-   ```bash
-   faas-cli invoke publish-message <<< "test message"
-   ```
-
-4. Verify that the receiver was invoked by checking the logs
+3. Verify that the receiver was invoked by checking the logs
 
    ```bash
    faas-cli logs receive-message
@@ -66,12 +19,11 @@ The following instructions show how to run and test `nats-connector` on Kubernet
    ```
 
 ## Building
-
 Build and release is done via CI, but you can also build your own version locally.
 
 ```bash
 export TAG=0.2.1
-make build push
+make publish
 ```
 
 ### Configuration
