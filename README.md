@@ -7,7 +7,7 @@ The following instructions show how to run and test `nats-connector` on Kubernet
 1. Deploy the connector with:
 
    ```bash
-   kubectl apply -f https://github.com/GGonryun/nats-connector/blob/master/yaml/kubernetes/connector-dep.yaml
+   kubectl apply -f https://raw.githubusercontent.com/GGonryun/nats-connector/master/yaml/kubernetes/connector-dep.yaml
    ```
 
 2. Verify that the receiver was invoked by checking the logs

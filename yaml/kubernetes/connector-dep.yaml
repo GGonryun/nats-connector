@@ -25,9 +25,9 @@ spec:
           - name: upstream_timeout
             value: "1m1s"
           - name: gateway_url
-            value: "http://gateway.openfaas:8080"
+            value: "http://gateway:8080"
           - name: topics
-            value: "test,alpha,beta"
+            value: "nats-test,"
           - name: print_response
             value: "true"
           - name: print_response_body
