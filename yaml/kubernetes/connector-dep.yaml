@@ -28,6 +28,8 @@ spec:
             value: "http://gateway:8080"
           - name: topics
             value: "nats-test,"
+          - name: broker-host
+            value: "nats-test,"
           - name: print_response
             value: "true"
           - name: print_response_body
