@@ -11,9 +11,7 @@ COPY nats	    nats
 COPY main.go    .
 
 # Run a gofmt and exclude all vendored code.
-RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*"))" \
- && go test -v ./... \
- && CGO_ENABLED=0 GOOS=linux go build -a -ldflags "-s -w" -installsuffix cgo -o /usr/bin/connector
+RUN CGO_ENABLED=0 GOOS=linux go build -a -ldflags "-s -w" -installsuffix cgo -o /usr/bin/connector
 
 FROM alpine:3.11 as ship
 RUN apk add --no-cache ca-certificates

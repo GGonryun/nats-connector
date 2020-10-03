@@ -1,6 +1,6 @@
 # nats-connector
 An OpenFaaS event-connector to trigger functions from NATS.
-### Deploy on Kubernetes
+## Deploy on Kubernetes
 
 The following instructions show how to run and test `nats-connector` on Kubernetes.
 
@@ -10,12 +10,11 @@ The following instructions show how to run and test `nats-connector` on Kubernet
    kubectl apply -f https://github.com/GGonryun/nats-connector/blob/master/yaml/kubernetes/connector-dep.yaml
    ```
 
-3. Verify that the receiver was invoked by checking the logs
+2. Verify that the receiver was invoked by checking the logs
 
    ```bash
-   faas-cli logs receive-message
+   faas-cli logs <fn_name>
 
-   2019-12-29T19:06:50Z 2019/12/29 19:06:50 received "test message"
    ```
 
 ## Building
